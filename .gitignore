@@ -1,3 +1,16 @@
+#project specific
+secrets.py
+pitch.txt
+output/*
+!output/.gitkeep
+pickles/*
+!pickles/.gitkeep
+
+#vim
+*.vim
+*.swp
+*.swo
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -10,6 +23,8 @@ __pycache__/
 env/
 bin/
 build/
+local/
+include/
 develop-eggs/
 dist/
 eggs/
