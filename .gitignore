@@ -1,10 +1,11 @@
 #project specific
-secrets.py
+asanaCRM/secrets.py
 pitch.txt
-output/*
-!output/.gitkeep
-pickles/*
-!pickles/.gitkeep
+asanaCRM/output/*
+!asanaCRM/output/.gitkeep
+asanaCRM/pickles/*
+!asanaCRM/pickles/.gitkeep
+
 
 #vim
 *.vim
