@@ -56,13 +56,12 @@ def pickle_asana_project():
         meta_dict['.link'] = "<a href='%s' target='_blank'>%s</a>" % (meta_dict['.url'],meta_dict['.name'])
 
         list_of_individuals = parser.to_dictionary(t['notes'])
-        list_of_individuals[0].update(meta_dict)
         list_of_individuals[0].update({'.notes':t['notes'],'.parent':True})
 
         for item in list_of_individuals:
             item.update(meta_dict)
                 
-        result.extend(list_of_individuals)
+        result.append(list_of_individuals)
 
     backup_filename = path.join(secrets.pickle_folder,datetime.datetime.now().isoformat()[:16]+'.pickle')
 
@@ -79,26 +78,27 @@ def build_error_page():
     '''build an html page with links to asana tasks and the errors associated with them'''
     counter = Counter()
     with open(secrets.pickle_file,'rb') as fp:
-      data = pickle.load(fp)
+        data = pickle.load(fp)
  
     with open(secrets.error_html,'wb') as fp:
       fp.write('<html><body>')
-      for item in data:
-        counter.update(item.keys())
-        try:
-            errors =  item['errors']
-        except KeyError:
-            pass
-        else:
-            #print item['.url']
-            name = item['name']
-            url = item['.url']
-            fp.write('<a href="%s" target="_blank">%s</a> had the following errors: <br/>' % (url,name))
-            for error in errors:
-              fp.write('&nbsp; &nbsp; %s <br/>' % error)
+      for item_list in data:
+          for item in item_list:
+              counter.update(item.keys())
+              try:
+                  errors =  item['errors']
+              except KeyError:
+                  pass
+              else:
+                  #print item['.url']
+                  name = item['name']
+                  url = item['.url']
+                  fp.write('<a href="%s" target="_blank">%s</a> had the following errors: <br/>' % (url,name))
+                  for error in errors:
+                      fp.write('&nbsp; &nbsp; %s <br/>' % error)
       fp.write('<p>Key Frequencies (check for markup inconsistencies):</p>')
       for xx in counter.most_common():
-        fp.write('&nbsp; &nbsp; %s : %s <br/>'%xx)
+          fp.write('&nbsp; &nbsp; %s : %s <br/>'%xx)
       fp.write('</body></html>')
  
 
