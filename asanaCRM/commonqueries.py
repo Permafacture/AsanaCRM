@@ -13,9 +13,9 @@ def enrolled_student_information():
     q.lastname_first(QL)      #add "lastname, firstname" representation of name 
     QL.sort('lastname first') #sort by "lastname, firstname"
     #Different information is wanted for csv and html outputs
-    QL.output_as_csv('lastname first, age, enrolled, days enrolled, allergies', 
+    QL.output_as_csv('lastname first, age, enrolled, days enrolled, directory, photos, allergies', 
                      outfile = path.join(out_dir,'enrolled_student_information.csv'))
-    QL.output_as_html('.link, lastname first, age, enrolled, days enrolled, allergies', 
+    QL.output_as_html('.link, lastname first, age, enrolled, days enrolled, directory, photos, allergies', 
                      outfile = path.join(out_dir, 'enrolled_student_information.html'))
 
 def enrolled_families():

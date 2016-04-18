@@ -60,6 +60,13 @@ def validateEmail(string):
     else:
         return string
 
+def validateBool(string):
+    string = string.lstrip().rstrip().lower()
+    if string in {'yes','no'}:
+        return string == 'yes' #return True or False
+    else:
+        raise ValidationException("'%s' is not a bool (yes or no)" % string)
+
 def validateDate(string):
     string =string.lstrip().rstrip()
     processed = datePattern.search(string)
