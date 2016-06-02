@@ -42,15 +42,19 @@ def alltime_student_information():
                       outfile = path.join(out_dir,'alltime_student_information.html'))
 
 def output_addresses(QL,outfile=path.join(out_dir,'addresses.txt')):
+    valid_ids = {item['.id'] for item in QL}
+    valid_entries = [item for item in q.database() if item[0]['.id'] in valid_ids]
     with open(outfile,'wb') as writer:
-        for item in QL:
-            name = item['name']
-            try:
-                address = item['address']
-            except KeyError:
-                address = None
+        for family in valid_entries:
+            name = ''
+            address = ''
+            for member in family:
+                if 'name' in member:
+                    name += member['name']+', '
+                if 'address' in member:
+                    address += ''.join(member['address'])+'\n'
             if address:
-                address = ' '.join(address).replace('|','\n')
+                address = address.replace('|','\n')
                 writer.write('\n'+name+'\n')
                 writer.write(address+'\n')
             else:

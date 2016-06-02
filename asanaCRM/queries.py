@@ -7,6 +7,15 @@ from collections import defaultdict
 strptime = datetime.datetime.strptime
 #can I use set(QL.copy().query('one_query').extend(QL.copy().query('nother_query')) to OR?
 
+def database():
+    '''returns an alternate data structure for querying. a dict of lists of dicts.
+    [ [ {family_member_1_name: 'Barbara'}, {...}], [{another_family...},] ]
+    '''
+    with open(secrets.pickle_file,'rb') as fp:
+      all_data = load(fp)
+    return all_data
+    
+
 class QueryList(list):
     '''Assumes list is of the format produced by pickle_asana_project'''
 
